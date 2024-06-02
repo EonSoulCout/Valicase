@@ -26,7 +26,6 @@ public class Gui_Inventory extends JFrame {
 	private JTextField textField_1;
 	private JButton btnAddProduct;
 	private JTextField textField_2;
-	private JLabel lblPrecioAuto;
 	private JButton btnChangeProduct;
 	private JButton btnDeleteProduct;
 	private JPanel contentPane;
@@ -66,7 +65,7 @@ public class Gui_Inventory extends JFrame {
 		contentPane.add(cmbProduct);
 		
 		JLabel lblUnits = new JLabel("Unidades en Stock:");
-		lblUnits.setBounds(17, 102, 92, 14);
+		lblUnits.setBounds(17, 102, 131, 14);
 		contentPane.add(lblUnits);
 		
 		spnUnits = new JSpinner();
@@ -105,8 +104,8 @@ public class Gui_Inventory extends JFrame {
 		btnChangeProduct.setBounds(235, 98, 133, 23);
 		contentPane.add(btnChangeProduct);
 		
-		JLabel lblSku = new JLabel("SKU: ");
-		lblSku.setBounds(17, 76, 41, 14);
+		JLabel lblSku = new JLabel("Descripcion: ");
+		lblSku.setBounds(17, 76, 65, 14);
 		contentPane.add(lblSku);
 		
 		JLabel lblNameProduct = new JLabel("Nombre: ");
@@ -127,12 +126,12 @@ public class Gui_Inventory extends JFrame {
 		textField_2.setBounds(78, 127, 74, 14);
 		contentPane.add(textField_2);
 		
-		JLabel lblPrecioP = new JLabel("Precio:");
-		lblPrecioP.setBounds(17, 152, 41, 14);
+		JLabel lblPrecioP = new JLabel("Proveedor:");
+		lblPrecioP.setBounds(17, 152, 65, 14);
 		contentPane.add(lblPrecioP);
 		
-		lblPrecioAuto = new JLabel("Precio");
-		lblPrecioAuto.setBounds(78, 152, 70, 14);
-		contentPane.add(lblPrecioAuto);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(78, 149, 142, 21);
+		contentPane.add(comboBox);
 	}
 }

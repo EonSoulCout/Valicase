@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.LogicaIngreso;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -16,13 +19,15 @@ import java.awt.event.ActionEvent;
 
 public class Gui_Client extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField txtAdress;
-	private JTextField txtName;
-	private JTextField txtNumber;
-	private JTextField txtDni;
-	private final JTable tblClients = new JTable();
+	public static final long serialVersionUID = 1L;
+	public JPanel contentPane;
+	public JTextField txtAdress;
+	public JTextField txtName;
+	public JTextField txtNumber;
+	public JTextField txtDni;
+	public final JTable tblClients = new JTable();
+	public JButton btnRegister;
+	public JButton btnRefrescar;
 
 	/**
 	 * Launch the application.
@@ -85,26 +90,29 @@ public class Gui_Client extends JFrame {
 		txtDni.setBounds(71, 136, 149, 20);
 		contentPane.add(txtDni);
 		
-		JLabel lblDni = new JLabel("C.I. :");
+		JLabel lblDni = new JLabel("RUC:");
 		lblDni.setBounds(10, 139, 51, 14);
 		contentPane.add(lblDni);
 		
-		JButton btnRegister = new JButton("Registrar");
+		btnRegister = new JButton("Registrar");
 		btnRegister.setBounds(10, 167, 89, 23);
 		contentPane.add(btnRegister);
-		tblClients.setBounds(266, 50, 305, 140);
+		tblClients.setBounds(242, 50, 329, 140);
 		contentPane.add(tblClients);
 		
 		JComboBox cmbClients = new JComboBox();
 		cmbClients.setBounds(10, 15, 305, 20);
 		contentPane.add(cmbClients);
 		
-		JButton btnRefrescar = new JButton("Refrescar");
+		btnRefrescar = new JButton("Refrescar");
 		btnRefrescar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnRefrescar.setBounds(482, 14, 89, 23);
 		contentPane.add(btnRefrescar);
+		
+		//Logica log=new Logica(this);
+
 	}
 }
