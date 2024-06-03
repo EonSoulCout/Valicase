@@ -1,104 +1,60 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import libreriaVersion2.generic;
 
-import Vista.Gui_Sale;
+public class Ventas extends ElectroTech{
+	
+	private generic<Double,String> dv;
+	public Ventas() {
+		super();
+		dv=new generic<>();
+	}
+	public Ventas(String nombre, String descrip, int cant, double precio,double descuento) {
+		super(nombre,descrip,cant,precio);
+		dv=new generic<>(descuento);
+	}
+	public void setDescuento(double descuento) {
+		this.dv.setAttribute1(descuento);
+	}
+	public double getDescuento() {
+		return dv.getAttribute1();
+	}
+	public double calprecio(double costo,int cantidad) {
+		
+		double ganancia=costo*0.35;
+		double impuesto=(costo*0.13);
+		double preciof=costo+ganancia+impuesto;
+		return preciof*cantidad;		
+	}
+	public String descuento(int cantidad) {
+		String descuento = "";
+	    if (cantidad >=30) {
+	        descuento ="30 %";
+	    } else if (cantidad>=20) {
+	        descuento ="20 %";
+	    } else if (cantidad>=10) {
+	        descuento ="10 %";
+	    } else {
+	        descuento ="0 %";
+	    }
+	    return descuento;		
+	}
+	
+	public String info() {
+		return "precio: ";
+	}
+	
+	@Override
+	public String toString() {
+		return "Ventas [getNombre()=" + getNombre() + ", getDescrip()=" + getDescrip() + ", getCosto()=" + getCosto()
+				+ ", Informacion()=" + Informacion() + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
 
-public class Ventas {
-    private String product;
-    private double price;
-    private int quantity;
-    private double discount;
-    private String client;
-
-    private static final String PRODUCT_FILE = "src/Data/products.txt";
-    private static final String CLIENT_FILE = "src/Data/clients.txt";
-
-    public Ventas(String product, double price, int quantity, double discount, String client) {
-        this.product = product;
-        this.price = price;
-        this.quantity = quantity;
-        this.discount = discount;
-        this.client = client;
-    }
-
-    // Getters and setters
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public String getClient() {
-        return client;
-    }
-
-    public void setClient(String client) {
-        this.client = client;
-    }
-
-    // Method to load data from a file
-    private static List<String> loadDataFromFile(String filePath) {
-        List<String> dataList = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                dataList.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return dataList;
-    }
-
-    // Methods to load products and clients
-    public static List<String> loadProducts() {
-        return loadDataFromFile(PRODUCT_FILE);
-    }
-
-    public static List<String> loadClients() {
-        return loadDataFromFile(CLIENT_FILE);
-    }
-
-    // Method to save a sale to a file
-    public void saveVenta() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/Data/ventas.txt", true))) {
-            writer.write(product + "," + price + "," + quantity + "," + discount + "," + client);
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

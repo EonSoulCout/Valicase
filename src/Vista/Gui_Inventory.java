@@ -1,10 +1,18 @@
 package Vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+
+import Model.Clientes;
+import Model.ElectroTech;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,21 +22,25 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Gui_Inventory extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JComboBox cmbProduct;
-	private JSpinner spnUnits;
-	private JTable table;
-	private final JTable table_1 = new JTable();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JButton btnAddProduct;
-	private JTextField textField_2;
-	private JButton btnChangeProduct;
-	private JButton btnDeleteProduct;
-	private JPanel contentPane;
+	public JComboBox cmbProduct;
+	public JSpinner spnUnits;
+	public JTable table;
+	public JTable tableInven;
+	public JTextField txt_Nmbre;
+	public JTextField txt_descrip;
+	public JButton btnAddProduct;
+	public JTextField txt_costo;
+	public JButton btnDeleteProduct;
+	public JPanel contentPane;
+	public JButton btn_Regresar;
+	public JComboBox comboBox_Proo; 
+	public DefaultTableModel tableModel;
 
 	/**
 	 * Launch the application.
@@ -51,87 +63,125 @@ public class Gui_Inventory extends JFrame {
 	 */
 	public Gui_Inventory() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 390, 330);
+		setBounds(100, 100, 561, 391);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(203, 205, 231));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		cmbProduct = new JComboBox();
-		cmbProduct.setEditable(true);
+		cmbProduct.setBackground(new Color(253, 249, 166));
 		cmbProduct.setToolTipText("Escojer producto");
-		cmbProduct.setBounds(17, 11, 210, 24);
+		cmbProduct.setBounds(17, 10, 296, 24);
 		contentPane.add(cmbProduct);
 		
 		JLabel lblUnits = new JLabel("Unidades en Stock:");
-		lblUnits.setBounds(17, 102, 131, 14);
+		lblUnits.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblUnits.setToolTipText("Cantidad de producto");
+		lblUnits.setBounds(17, 120, 110, 14);
 		contentPane.add(lblUnits);
 		
 		spnUnits = new JSpinner();
-		spnUnits.setToolTipText("Unidades");
-		spnUnits.setBounds(118, 101, 30, 20);
+		spnUnits.setBackground(new Color(253, 249, 166));
+		spnUnits.setToolTipText("Cantidad del producto");
+		spnUnits.setBounds(141, 117, 38, 20);
 		contentPane.add(spnUnits);
 		
-		table = new JTable();
-		table.setBounds(35, 206, 160, 0);
-		contentPane.add(table);
-		table_1.setBounds(10, 177, 358, 103);
-		contentPane.add(table_1);
-		
+		String[] columnNames = {"Nombre", "Descripción", "Stock", "Costo","Proovedor"};
+		tableModel = new DefaultTableModel(columnNames, 0) {
+			@Override 
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tableInven = new JTable(tableModel);
+		JScrollPane scrollPane = new JScrollPane(tableInven);
+		scrollPane.setBounds(10, 205, 531, 139);
+		scrollPane.getViewport().setBackground(Color.white);
+		tableInven.getTableHeader().setReorderingAllowed(false);
+		tableInven.getTableHeader().setBackground(Color.white);;
+		contentPane.add(scrollPane);
+
+	
 		btnDeleteProduct = new JButton("Eliminar Produto");
+		btnDeleteProduct.setBackground(new Color(253, 249, 166));
 		btnDeleteProduct.setToolTipText("Elimina un producto de la lista");
-		btnDeleteProduct.setBounds(240, 12, 125, 23);
+		btnDeleteProduct.setBounds(408, 42, 133, 23);
 		contentPane.add(btnDeleteProduct);
 		
-		textField = new JTextField();
-		textField.setToolTipText("Nombre del producto");
-		textField.setBounds(78, 46, 149, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txt_Nmbre = new JTextField();
+		txt_Nmbre.setBackground(new Color(253, 249, 166));
+		txt_Nmbre.setToolTipText("Nombre del producto");
+		txt_Nmbre.setBounds(141, 58, 149, 20);
+		contentPane.add(txt_Nmbre);
+		txt_Nmbre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(78, 70, 86, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
-		btnChangeProduct = new JButton("Cambios de producto");
-		btnChangeProduct.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnChangeProduct.setToolTipText("Realiza cambios del producto selecionado");
-		btnChangeProduct.setBounds(235, 98, 133, 23);
-		contentPane.add(btnChangeProduct);
+		txt_descrip = new JTextField();
+		txt_descrip.setBackground(new Color(253, 249, 166));
+		txt_descrip.setToolTipText("Descripción del producto");
+		txt_descrip.setBounds(141, 89, 149, 20);
+		contentPane.add(txt_descrip);
+		txt_descrip.setColumns(10);
 		
 		JLabel lblSku = new JLabel("Descripcion: ");
-		lblSku.setBounds(17, 76, 65, 14);
+		lblSku.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSku.setBounds(17, 91, 86, 14);
 		contentPane.add(lblSku);
 		
 		JLabel lblNameProduct = new JLabel("Nombre: ");
-		lblNameProduct.setBounds(17, 46, 51, 14);
+		lblNameProduct.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNameProduct.setBounds(17, 61, 66, 14);
 		contentPane.add(lblNameProduct);
 		
 		btnAddProduct = new JButton("Agregar Produto");
+		btnAddProduct.setBackground(new Color(253, 249, 166));
 		btnAddProduct.setToolTipText("Agrega un producto a la lista");
-		btnAddProduct.setBounds(240, 46, 125, 23);
+		btnAddProduct.setBounds(408, 11, 133, 23);
 		contentPane.add(btnAddProduct);
 		
-		JLabel lblCosto = new JLabel("Costo:");
-		lblCosto.setBounds(17, 127, 41, 14);
+		JLabel lblCosto = new JLabel("Costo unitario:");
+		lblCosto.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblCosto.setBounds(17, 148, 86, 14);
 		contentPane.add(lblCosto);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(78, 127, 74, 14);
-		contentPane.add(textField_2);
+		txt_costo = new JTextField();
+		txt_costo.setBackground(new Color(253, 249, 166));
+		txt_costo.setToolTipText("Costo del producto");
+		txt_costo.setColumns(10);
+		txt_costo.setBounds(141, 146, 54, 20);
+		contentPane.add(txt_costo);
 		
 		JLabel lblPrecioP = new JLabel("Proveedor:");
-		lblPrecioP.setBounds(17, 152, 65, 14);
+		lblPrecioP.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblPrecioP.setBounds(17, 177, 66, 14);
 		contentPane.add(lblPrecioP);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(78, 149, 142, 21);
-		contentPane.add(comboBox);
+		comboBox_Proo = new JComboBox();
+		comboBox_Proo.setBackground(new Color(253, 249, 166));
+		comboBox_Proo.setToolTipText("Lista de proveedores");
+		comboBox_Proo.setBounds(141, 173, 152, 21);
+		contentPane.add(comboBox_Proo);
+		
+		btn_Regresar = new JButton("Cancelar");
+		btn_Regresar.setBackground(new Color(253, 249, 166));
+		btn_Regresar.setToolTipText("Regresa al menu principal");
+		btn_Regresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btn_Regresar.setBounds(452, 171, 89, 23);
+		contentPane.add(btn_Regresar);
+	}
+	public void agregarproductoATabla(ElectroTech el) {
+		tableModel.addRow(new Object[]{
+				el.getNombre(),
+				el.getDescrip(),
+				el.getStok(),
+				el.getCosto(),
+				comboBox_Proo.getSelectedItem().toString(),
+				
+		});
 	}
 }

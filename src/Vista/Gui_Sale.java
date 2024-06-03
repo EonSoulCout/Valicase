@@ -1,18 +1,19 @@
 package Vista;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import Model.Ventas;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.util.List;
+import javax.swing.SpinnerNumberModel;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Font;
+import java.awt.Color;
 
 public class Gui_Sale extends JFrame {
 
@@ -20,14 +21,13 @@ public class Gui_Sale extends JFrame {
     private JPanel contentPane;
     public JButton btnVenta;
     public JComboBox<String> cmbProduct;
-    public JTextField textField;
+    public JTextField txt_Precio;
     public JSpinner spnUnits;
-    public JTextField textField_1;
-    public JComboBox<String> cmbProduct_1;
+    public JTextField txt_descuento;
+    public JComboBox<String> cmb_Clientes;
+    public JTextField txtstock;
+    public JButton btn_Regresar;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -41,92 +41,106 @@ public class Gui_Sale extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public Gui_Sale() {
+        
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 240);
+        setBounds(100, 100, 450, 225);
         contentPane = new JPanel();
+        contentPane.setBackground(new Color(203, 205, 231));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         cmbProduct = new JComboBox<>();
+        cmbProduct.setBackground(new Color(253, 249, 166));
         cmbProduct.setToolTipText("Escojer producto");
-        cmbProduct.setEditable(true);
-        cmbProduct.setBounds(79, 24, 210, 24);
+        cmbProduct.setEditable(false);
+        cmbProduct.setBounds(94, 7, 210, 24);
         contentPane.add(cmbProduct);
 
-        JLabel lblUnits = new JLabel("Cantidad:");
-        lblUnits.setBounds(10, 98, 50, 14);
+        JLabel lblUnits = new JLabel("Cantidad a comprar:");
+        lblUnits.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblUnits.setBounds(10, 83, 125, 17);
         contentPane.add(lblUnits);
 
         spnUnits = new JSpinner();
+        spnUnits.setForeground(new Color(253, 249, 166));
+        spnUnits.setBackground(new Color(253, 249, 166));
+        spnUnits.setModel(new SpinnerNumberModel(Integer.valueOf(1), null, null, Integer.valueOf(1)));
         spnUnits.setToolTipText("Unidades");
-        spnUnits.setBounds(79, 96, 30, 20);
+        spnUnits.setBounds(145, 82, 60, 20);
         contentPane.add(spnUnits);
 
         btnVenta = new JButton("Registrar venta");
+        btnVenta.setBackground(new Color(253, 249, 166));
         btnVenta.setToolTipText("Registrar una venta");
-        btnVenta.setBounds(299, 167, 125, 23);
+        btnVenta.setBounds(308, 156, 116, 23);
         contentPane.add(btnVenta);
 
-        cmbProduct_1 = new JComboBox<>();
-        cmbProduct_1.setToolTipText("Escojer cliente");
-        cmbProduct_1.setEditable(true);
-        cmbProduct_1.setBounds(79, 167, 210, 24);
-        contentPane.add(cmbProduct_1);
+        cmb_Clientes = new JComboBox<>();
+        cmb_Clientes.setBackground(new Color(253, 249, 166));
+        cmb_Clientes.setToolTipText("Escojer cliente");
+        cmb_Clientes.setEditable(false);
+        cmb_Clientes.setBounds(94, 155, 195, 24);
+        contentPane.add(cmb_Clientes);
 
         JLabel lblProducto = new JLabel("Producto: ");
-        lblProducto.setBounds(10, 28, 78, 14);
+        lblProducto.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblProducto.setBounds(10, 11, 66, 14);
         contentPane.add(lblProducto);
 
         JLabel lblCliente = new JLabel("Cliente: ");
-        lblCliente.setBounds(10, 171, 50, 14);
+        lblCliente.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblCliente.setBounds(10, 159, 50, 14);
         contentPane.add(lblCliente);
 
         JLabel lblPrecioDeVenta = new JLabel("Precio: ");
-        lblPrecioDeVenta.setBounds(10, 58, 50, 14);
+        lblPrecioDeVenta.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblPrecioDeVenta.setBounds(10, 44, 50, 14);
         contentPane.add(lblPrecioDeVenta);
 
         JLabel lblProducto_1_1 = new JLabel("Descuento:");
-        lblProducto_1_1.setBounds(10, 137, 78, 14);
+        lblProducto_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblProducto_1_1.setBounds(10, 122, 78, 14);
         contentPane.add(lblProducto_1_1);
 
-        textField = new JTextField();
-        textField.setBounds(79, 58, 96, 20);
-        contentPane.add(textField);
-        textField.setColumns(10);
+        txt_Precio = new JTextField();
+        txt_Precio.setBackground(new Color(253, 249, 166));
+        txt_Precio.setEditable(false);
+        txt_Precio.setBounds(94, 42, 96, 20);
+        contentPane.add(txt_Precio);
+        txt_Precio.setColumns(10);
 
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        textField_1.setBounds(81, 135, 96, 20);
-        contentPane.add(textField_1);
+        txt_descuento = new JTextField();
+        txt_descuento.setBackground(new Color(253, 249, 166));
+        txt_descuento.setEditable(false);
+        txt_descuento.setColumns(10);
+        txt_descuento.setBounds(94, 120, 96, 20);
+        contentPane.add(txt_descuento);
 
-        // Load data from text files and populate combo boxes
-        populateComboBoxes();
+        txtstock = new JTextField();
+        txtstock.setBackground(new Color(253, 249, 166));
+        txtstock.setEditable(false);
+        txtstock.setBounds(314, 82, 43, 20);
+        contentPane.add(txtstock);
+        txtstock.setColumns(10);
 
-        // Action listener for the button
-        btnVenta.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String product = (String) cmbProduct.getSelectedItem();
-                double price = Double.parseDouble(textField.getText());
-                int quantity = (Integer) spnUnits.getValue();
-                double discount = Double.parseDouble(textField_1.getText());
-                String client = (String) cmbProduct_1.getSelectedItem();
+        JLabel lblNewLabel = new JLabel("Stock:");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblNewLabel.setBounds(254, 84, 50, 14);
+        contentPane.add(lblNewLabel);
 
-                Ventas venta = new Ventas(product, price, quantity, discount, client);
-
-                // Save the sale
-                venta.saveVenta();
-            }
-        });
-    }
-
-    private void populateComboBoxes() {
+        // Load data into combo boxes
         
+        btn_Regresar = new JButton("Cancelar");
+        btn_Regresar.setBackground(new Color(253, 249, 166));
+        btn_Regresar.setToolTipText("Regresar al menu principal");
+        btn_Regresar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btn_Regresar.setBounds(317, 8, 107, 23);
+        contentPane.add(btn_Regresar);
     }
 }
-
